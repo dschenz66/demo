@@ -9,7 +9,7 @@ pipeline {
             steps {
                 script {
                     // Determine
-                    sh "echo $BRANCH_NAME"
+                    sh "echo Branch is $BRANCH_NAME"
                     if (${env.BRANCH_NAME == "production"}) {
                         env.DEPLOY_PROFILE = 'stage-prod'
                     } else {
@@ -19,7 +19,7 @@ pipeline {
                             env.DEPLOY_PROFILE = 'stage-dev'
                         }
                     }
-                    sh "echo $DEPLOY_PROFILE"
+                    sh "echo Deployprofile is $DEPLOY_PROFILE"
                 }
             }
         }
