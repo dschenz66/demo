@@ -8,27 +8,31 @@ pipeline {
         stage('Environment') {
             steps {
                 script {
-                    // Determine
+                    // Determine npm profile
                     sh "echo Branch is $BRANCH_NAME"
                     script {
-                        if (env.BRANCH_NAME == 'production') {
-                            env.DEPLOY_PROFILE = 'stage-prod'
-                        } else {
-                            if (env.BRANCH_NAME == 'candidate') {
-                                env.DEPLOY_PROFILE = 'stage-test'
-                            } else {
-                                env.DEPLOY_PROFILE = 'stage-dev'
-                            }
+                        switch (env.BRANCH_NAME) {
+                            case 'master':
+                                env.NPM_ENV = 'stage-prod'
+                                break
+                            case 'candidate':
+                                env.NPM_ENV = 'stage-test'
+                                break
+                            case 'development':
+                                env.NPM_ENV = 'stage-dev'
+                                break
+                            default:
+                                env.NPM_ENV = 'unknown'
                         }
                     }
-                    sh "echo Deployprofile is $DEPLOY_PROFILE"
+                    sh "echo npm-profile is $NPM_ENV"
                 }
             }
         }
 
         stage('build') {
             steps {
-                sh "echo $DEPLOY_PROFILE"
+                sh "echo $NPM_ENV"
                 sh 'mvn --version'
             }
         }
