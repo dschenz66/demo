@@ -10,10 +10,10 @@ pipeline {
                 script {
                     // Determine
                     sh "echo $BRANCH_NAME"
-                    if ${env.BRANCH_NAME == "production"} {
+                    if (${env.BRANCH_NAME == "production"}) {
                         env.DEPLOY_PROFILE = 'stage-prod'
                     } else {
-                        if ${env.BRANCH_NAME == "candidate"} {
+                        if (${env.BRANCH_NAME == "candidate"}) {
                             env.DEPLOY_PROFILE = 'stage-test'
                         } else {
                             env.DEPLOY_PROFILE = 'stage-dev'
