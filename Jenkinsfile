@@ -33,6 +33,7 @@ pipeline {
 
         stage('build') {
             steps {
+                sh "echo $_MY_VAR"
                 sh "echo $NPM_ENV"
                 sh 'mvn --version'
             }
