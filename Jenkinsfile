@@ -2,6 +2,7 @@ pipeline {
     agent any
         environment {
             DEPLOY_PROFILE = "${env.BRANCH_NAME == "develop" ? "staging" : "production"}"
+            MY_VAR=$DEPLOY_PROFILE/selfservice-core
         }
 
     stages {
